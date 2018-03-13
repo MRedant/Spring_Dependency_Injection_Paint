@@ -30,17 +30,17 @@ public class TaxCalculatorTest {
     @Test
     public void unitTest_calculateTaxesOnYearIncome_givenYearSalaryAndCountry_calculateTaxesOnYearIncome() {
         //GIVEN
-        TaxCalculation taxCalculation = Mockito.mock(AmericanTaxCalc.class);
-        TaxCalculator calculator = new TaxCalculator(taxCalculation);
+        TaxCalculation americanTaxCalculation = Mockito.mock(AmericanTaxCalc.class);
+        TaxCalculator calculator = new TaxCalculator(americanTaxCalculation);
         BigDecimal yearSalary = BigDecimal.valueOf(40000);
         BigDecimal expectedResult = BigDecimal.valueOf(8150);
 
         //WHEN
-        Mockito.when(taxCalculation.calculateTax(any())).thenReturn(BigDecimal.valueOf(8150));
+        Mockito.when(americanTaxCalculation.calculateTax(any())).thenReturn(BigDecimal.valueOf(8150));
         BigDecimal actualResult = calculator.calculateTaxesOnYearIncome(yearSalary);
 
         //THEN
-        Mockito.verify(taxCalculation,new Times(1)).calculateTax(any());
+        Mockito.verify(americanTaxCalculation,new Times(1)).calculateTax(any());
         Assertions.assertEquals(actualResult,expectedResult);
     }
 
