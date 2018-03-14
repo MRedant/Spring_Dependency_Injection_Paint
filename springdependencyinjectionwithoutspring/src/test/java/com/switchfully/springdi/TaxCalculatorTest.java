@@ -9,7 +9,9 @@ import org.mockito.internal.verification.Times;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+
 
 public class TaxCalculatorTest {
 
@@ -25,7 +27,7 @@ public class TaxCalculatorTest {
                 .setScale(0, RoundingMode.CEILING);
 
         //THEN
-        Assertions.assertEquals(actualResult,expectedResult);
+        assertEquals(actualResult,expectedResult);
     }
     @Test
     public void unitTest_calculateTaxesOnYearIncome_givenYearSalaryAndCountry_calculateTaxesOnYearIncome() {
@@ -41,7 +43,7 @@ public class TaxCalculatorTest {
 
         //THEN
         Mockito.verify(americanTaxCalculation,new Times(1)).calculateTax(any());
-        Assertions.assertEquals(actualResult,expectedResult);
+        assertEquals(actualResult,expectedResult);
     }
 
 

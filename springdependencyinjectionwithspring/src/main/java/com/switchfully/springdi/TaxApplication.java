@@ -10,12 +10,6 @@ import java.math.BigDecimal;
 public class TaxApplication {
     public static void main(String[] args) {
 
-          //old way without Spring
-//        BigDecimal yearIncome = new BigDecimal(40000);
-//        TaxCalculator taxCalculator = new TaxCalculator(new AmericanTaxCalc());
-//        BigDecimal tax = taxCalculator.calculateTaxesOnYearIncome(yearIncome);
-//        System.out.println(tax);
-
         //use annotations in this class and manage it by an dependency injection:
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TaxApplication.class);
         //get the implementation that has to be injected
