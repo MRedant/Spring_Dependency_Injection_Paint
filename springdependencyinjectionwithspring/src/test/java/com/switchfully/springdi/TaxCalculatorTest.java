@@ -2,17 +2,30 @@ package com.switchfully.springdi;
 
 import com.switchfully.springdi.taxByCountry.AmericanTaxCalc;
 import com.switchfully.springdi.taxByCountry.TaxCalculation;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TaxCalculatorTest {
+
+    @Mock
+    // = the empty shell of something we rely on in our tests
+    private TaxCalculation taxCalculation;
+
+    @InjectMocks
+    // = when creating an instance of this class you should inject the mock inhere
+    private TaxCalculator taxCalculator;
 
     @Test
     public void integrationTest_calculateTaxesOnYearIncome_givenYearSalaryAndCountry_calculateTaxesOnYearIncome() {
@@ -25,25 +38,22 @@ public class TaxCalculatorTest {
         BigDecimal actualResult = calculator.calculateTaxesOnYearIncome(yearSalary).setScale(0, RoundingMode.CEILING);
 
         //THEN
-        Assertions.assertEquals(actualResult,expectedResult);
+        assertEquals(actualResult, expectedResult);
     }
+
     @Test
     public void unitTest_calculateTaxesOnYearIncome_givenYearSalaryAndCountry_calculateTaxesOnYearIncome() {
         //GIVEN
-        TaxCalculation americanTaxCalculation = Mockito.mock(AmericanTaxCalc.class);
-        TaxCalculator calculator = new TaxCalculator(americanTaxCalculation);
         BigDecimal yearSalary = BigDecimal.valueOf(40000);
         BigDecimal expectedResult = BigDecimal.valueOf(8150);
 
         //WHEN
-        Mockito.when(americanTaxCalculation.calculateTax(any())).thenReturn(BigDecimal.valueOf(8150));
-        BigDecimal actualResult = calculator.calculateTaxesOnYearIncome(yearSalary);
+        Mockito.when(taxCalculation.calculateTax(any(BigDecimal.class))).thenReturn(BigDecimal.valueOf(8150));
+        BigDecimal actualResult = taxCalculator.calculateTaxesOnYearIncome(yearSalary);
 
         //THEN
-        Mockito.verify(americanTaxCalculation,new Times(1)).calculateTax(any());
-        Assertions.assertEquals(actualResult,expectedResult);
+        assertEquals(actualResult, expectedResult);
     }
-
 
 
 }

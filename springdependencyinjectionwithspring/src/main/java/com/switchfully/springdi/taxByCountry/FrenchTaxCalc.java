@@ -1,7 +1,9 @@
 package com.switchfully.springdi.taxByCountry;
 
+import javax.inject.Named;
 import java.math.BigDecimal;
 
+@Named("FrenchTax")
 public class FrenchTaxCalc implements TaxCalculation {
 
     @Override

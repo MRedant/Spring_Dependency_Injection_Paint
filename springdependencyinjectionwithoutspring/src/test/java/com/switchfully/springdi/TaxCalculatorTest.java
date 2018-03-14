@@ -2,8 +2,7 @@ package com.switchfully.springdi;
 
 import com.switchfully.springdi.taxByCountry.AmericanTaxCalc;
 import com.switchfully.springdi.taxByCountry.TaxCalculation;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
 
@@ -22,7 +21,8 @@ public class TaxCalculatorTest {
 
         //WHEN
         BigDecimal yearSalary = BigDecimal.valueOf(40000);
-        BigDecimal actualResult = calculator.calculateTaxesOnYearIncome(yearSalary).setScale(0, RoundingMode.CEILING);
+        BigDecimal actualResult = calculator.calculateTaxesOnYearIncome(yearSalary)
+                .setScale(0, RoundingMode.CEILING);
 
         //THEN
         Assertions.assertEquals(actualResult,expectedResult);
